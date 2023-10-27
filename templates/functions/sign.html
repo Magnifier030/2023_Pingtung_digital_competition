@@ -1,0 +1,33 @@
+{% extends "template/base.html" %}
+{% block title %} 國際分類符號辨識 {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/spinner.css">
+{% endblock %}
+{% block content %}
+<h1 class="title">
+    國際分類符號辨識
+</h1>
+<div class="container-center" id="container-center-main" style="padding-top: 0px;">
+    <div class="container-left">
+        <div style="color: aliceblue; width: 30%; margin-left: 20%;">
+            <p style="font-size: 20px;">
+                圖像識別國際回收符號，這項創新技術讓回收更容易。我們的系統允許您使用手機或相機，上傳圖片捕捉回收符號，然後自動識別分類。這不僅有助於提高回收率，還為環保事業貢獻一己之力。一張照片，為地球多一份保護。
+            </p>
+        </div>
+        <div style="width: 5%;"></div>
+        <div style=" width: 45%;">
+            <img src="https://img95.699pic.com/photo/40152/3823.gif_wh860.gif" style="width: 250px; height: 250px;">
+        </div>
+    </div>
+    <div class="container-center" id ='container-center'>
+        <div class="container-center">
+            <form data-target="form" method="post" enctype="multipart/form-data">
+                <input type="file" class="custom-file-input" data-target="file-uploader" id="file-uploader" name="img">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/js/file.js"></script>
+{% endblock %}

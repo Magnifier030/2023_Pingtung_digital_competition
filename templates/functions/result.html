@@ -1,0 +1,18 @@
+{% extends "template/base.html" %}
+{% block title %} 國際分類符號辨識 {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/spinner.css">
+{{ css | safe}}
+{% endblock %}
+{% block content %}
+<h1 class="title">
+    {{title}}
+</h1>
+<div class="container-center" id="container-center-main" style="padding-top: 0px;">
+    {{html | safe}}
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/js/file.js"></script>
+{{ js | safe}}
+{% endblock %}

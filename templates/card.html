@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="/static/css/card.css">
+    </head>
+    <body>
+    <h1 class="title">互動視覺展現</h1>
+    <!-- Forked from: https://codepen.io/andymerskin/pen/XNMWvQ -->
+    <script type="dagger/configs">
+        {
+        "card": "https://codepen.io/dagger8224/pen/GRxJqGK.html"
+        }
+    </script>
+    <h1 class="title">Hover over the cards</h1>
+    
+    <div id="app" class="container">
+        {% for card in cards %}
+
+        <card +loading="{ dataImage: 'https://images.unsplash.com/photo-1479660656269-197ebb83b540?dpr=2&auto=compress,format&fit=crop&w=1199&h=798&q=80&cs=tinysrgb&crop=', h1: 'Canyons', p: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', h1: '{{card.user_name}}', p: '{{card.message}}' }"></card>
+        {% endfor %}
+    </div>
+    </body>
+</html>
+
+<script type="module" crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/@peakman/dagger.js@0.9.13/dagger.release.js" defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script async>
+    $( document ).ready(function() {
+        setInterval(Update, 10000)
+        // Update();
+    });
+
+    function Update(){
+        $.ajax({
+          type: "POST",
+          url: "{% url 'card' %}",
+          data: {
+            status : "Update",
+            count : $(".card-wrap").length,
+          },
+          dataType: "json",
+          success: function (res) {
+            if(!res.new){
+                return;
+            }
+            var content = res.content;
+            for(var i = 0; i < content.length; i++){
+                console.log(i);
+                text = '<div class="card-wrap"><div class="card" style="transform: rotateY(0deg) rotateX(0deg);"><div class="card-bg" style="transform: translateX(0px) translateY(0px); background-image: url(&quot;' + content[i][0] + '&quot;);"></div><div class="card-info"><h1>' + content[i][1].user_name + '</h1><p>' + content[i][1].message + '</p></div></div></div>';
+                $('#app').prepend(text);
+            }
+            window.location.reload();
+          },
+        });
+    }
+</script>
